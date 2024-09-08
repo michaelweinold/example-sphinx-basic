@@ -1,63 +1,53 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
-
-# -- Path setup --------------------------------------------------------------
-
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
-
-
-# -- Project information -----------------------------------------------------
-
-project = "Basic Sphinx Example Project"
-copyright = "2022, Read the Docs core team"
-author = "Read the Docs core team"
-
-
-# -- General configuration ---------------------------------------------------
-# -- General configuration
+###################################################################################################
+### Project Configuration #########################################################################
+###################################################################################################
 
 extensions = [
-    "sphinx.ext.duration",
-    "sphinx.ext.doctest",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
-    "sphinx.ext.intersphinx",
+    # core extensions
+    'sphinx.ext.inheritance_diagram',
+    # Markdown support
+    'myst_parser', 
+    # API documentation support
+    'autoapi',
 ]
 
-intersphinx_mapping = {
-    "rtd": ("https://docs.readthedocs.io/en/stable/", None),
-    "python": ("https://docs.python.org/3/", None),
-    "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
-}
-intersphinx_disabled_domains = ["std"]
+root_doc = 'index'
+exclude_patterns = ['_build']
+html_theme = "pydata_sphinx_theme"
 
-templates_path = ["_templates"]
+suppress_warnings = [
+    "myst.header", # suppress warnings of the kind "WARNING: Non-consecutive header level increase; H1 to H3"
+]
 
-# -- Options for EPUB output
-epub_show_urls = "footnote"
+####################################################################################################
+### Theme html Configuration #######################################################################
+####################################################################################################
 
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-# -- Options for HTML output -------------------------------------------------
+####################################################################################################
+### Extension Configuration ########################################################################
+####################################################################################################
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-html_theme = "sphinx_rtd_theme"
+# autoapi Configuration ################################################
+# https://sphinx-autoapi.readthedocs.io/en/latest/reference/config.html#customisation-options
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+autoapi_dirs = [
+    '../lumache',
+    '../brightway2-data'
+]
+
+autoapi_options = [
+    'members',
+    'undoc-members',
+    'private-members',
+    'show-inheritance',
+    'show-module-summary',
+    'show-inheritance-diagram'
+]
+
+graphviz_output_format = 'svg' # https://pydata-sphinx-theme.readthedocs.io/en/stable/examples/graphviz.html#inheritance-diagram
+
+autoapi_python_class_content = 'both'
+autoapi_member_order = 'groupwise'
+autoapi_root = 'api'
+autoapi_keep_files = False
