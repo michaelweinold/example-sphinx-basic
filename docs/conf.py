@@ -32,8 +32,7 @@ suppress_warnings = [
 # https://sphinx-autoapi.readthedocs.io/en/latest/reference/config.html#customisation-options
 
 autoapi_dirs = [
-    '../lumache',
-    '../brightway2-data'
+    '../test_library',
 ]
 
 autoapi_options = [
