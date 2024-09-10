@@ -9,5 +9,3 @@ class middle(highest):
 class lowest:
     def __init__(self):
         self.db = "middle"
-
-test_module = lowest()
